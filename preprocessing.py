@@ -36,12 +36,12 @@ def adding_remaining_features(df):
     return df
 
 #The function
-def dataProcessing_Chunks(inputdf,features,hours_ahead,hours_behind):
+def dataProcessing_Chunks(inputdf,features,hours_ahead,hours_behind, offset=1):
     for feature in features:
-        for i in range(1,hours_ahead+1,1):
+        for i in range(offset,hours_ahead+1,1):
             inputdf[f'{feature}+{i}'] = inputdf[f'{feature}'].shift(-i)
     for feature in features:
-        for i in range(1,hours_behind+1,1):
+        for i in range(offset,hours_behind+1,1):
             inputdf[f'{feature}-{i}'] = inputdf[f'{feature}'].shift(i)   
     inputdf.dropna(inplace=True)
     return inputdf
